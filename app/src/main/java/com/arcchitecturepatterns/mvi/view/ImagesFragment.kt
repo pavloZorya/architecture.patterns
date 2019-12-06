@@ -1,4 +1,4 @@
-package com.arcchitecturepatterns.mvi.image.list
+package com.arcchitecturepatterns.mvi.view
 
 import android.os.Bundle
 import android.util.Log
@@ -7,17 +7,19 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arcchitecturepatterns.R
-import com.arcchitecturepatterns.mvi.data.image.Image
+import com.arcchitecturepatterns.common.data.image.Image
+import com.arcchitecturepatterns.common.view.ImagesRecyclerViewAdapter
+import com.arcchitecturepatterns.mvi.usecase.image.ImagesListInteractor
 import com.arcchitecturepatterns.mvi.usecase.image.state.ImagesListViewState
 import com.hannesdorfmann.mosby3.mvi.MviFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_images_list.*
 
-class ImagesFragment : MviFragment<ImagesListView, ImagesPresenter>(), ImagesListView {
+class ImagesFragment : MviFragment<ImagesListView, ImagesPresenter>(),
+    ImagesListView {
 
     private var columnCount = 1
 
@@ -35,8 +37,6 @@ class ImagesFragment : MviFragment<ImagesListView, ImagesPresenter>(), ImagesLis
         super.onViewCreated(view, savedInstanceState)
 
         with(recyclerView) {
-            //            recyclerView.addItemDecoration(DividerItemDecoration(context,
-//                DividerItemDecoration.HORIZONTAL))
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
@@ -54,7 +54,7 @@ class ImagesFragment : MviFragment<ImagesListView, ImagesPresenter>(), ImagesLis
 
         when (viewState) {
             is ImagesListViewState.ImagesLoadingNotStartedYet -> {
-
+                Log.d("ImagesFragment", "ImagesLoadingNotStartedYet state")
             }
             is ImagesListViewState.Loading -> {
                 renderLoading()
@@ -72,14 +72,10 @@ class ImagesFragment : MviFragment<ImagesListView, ImagesPresenter>(), ImagesLis
     }
 
     private fun renderImagesList(images: List<Image>) {
-        recyclerView.adapter = ImagesRecyclerViewAdapter(
-            images,
-            object : ImagesRecyclerViewAdapter.ImageClickListener {
-                override fun onClick(item: Image) {
-
-                }
-
-            })
+        recyclerView.adapter =
+            ImagesRecyclerViewAdapter(
+                images
+            )
 
         recyclerView.visibility = VISIBLE
         progressBar.visibility = GONE
@@ -107,5 +103,8 @@ class ImagesFragment : MviFragment<ImagesListView, ImagesPresenter>(), ImagesLis
         errorMessage.visibility = GONE
     }
 
-    override fun createPresenter(): ImagesPresenter = ImagesPresenter(ImagesListInteractor())
+    override fun createPresenter(): ImagesPresenter =
+        ImagesPresenter(
+            ImagesListInteractor()
+        )
 }

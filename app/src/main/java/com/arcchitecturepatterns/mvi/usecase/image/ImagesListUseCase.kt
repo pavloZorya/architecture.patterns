@@ -1,8 +1,11 @@
 package com.arcchitecturepatterns.mvi.usecase.image
 
-import com.arcchitecturepatterns.mvi.data.image.Image
-import com.arcchitecturepatterns.mvi.data.source.ImagesDataSource
+import com.arcchitecturepatterns.common.data.image.Image
+import com.arcchitecturepatterns.common.data.source.ImagesDataSource
 import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ImagesListUseCase {

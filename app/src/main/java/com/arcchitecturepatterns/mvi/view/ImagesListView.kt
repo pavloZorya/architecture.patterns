@@ -1,4 +1,4 @@
-package com.arcchitecturepatterns.mvi.image.list
+package com.arcchitecturepatterns.mvi.view
 
 import com.arcchitecturepatterns.mvi.usecase.image.state.ImagesListViewState
 import com.hannesdorfmann.mosby3.mvp.MvpView

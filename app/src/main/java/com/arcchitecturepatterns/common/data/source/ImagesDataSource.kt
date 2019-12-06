@@ -1,6 +1,6 @@
-package com.arcchitecturepatterns.mvi.data.source
+package com.arcchitecturepatterns.common.data.source
 
-import com.arcchitecturepatterns.mvi.data.image.Image
+import com.arcchitecturepatterns.common.data.image.Image
 
 object ImagesDataSource {
     val images: List<Image> by lazy {

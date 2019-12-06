@@ -1,4 +1,4 @@
-package com.arcchitecturepatterns.mvi.image.list
+package com.arcchitecturepatterns.common.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.arcchitecturepatterns.R
-import com.arcchitecturepatterns.mvi.data.image.Image
+import com.arcchitecturepatterns.common.data.image.Image
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.image_view_holder.view.*
 
 class ImagesRecyclerViewAdapter(
     private val imagesList: List<Image>,
-    private val listener: ImageClickListener
+    private val listener: ImageClickListener? = null
 ) : RecyclerView.Adapter<ImagesRecyclerViewAdapter.ImageViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -21,7 +21,7 @@ class ImagesRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as Image
-            listener.onClick(item)
+            listener?.onClick(item)
         }
     }
 

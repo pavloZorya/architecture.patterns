@@ -1,6 +1,6 @@
 package com.arcchitecturepatterns.mvi.usecase.image.state
 
-import com.arcchitecturepatterns.mvi.data.image.Image
+import com.arcchitecturepatterns.common.data.image.Image
 
 sealed class ImagesListViewState {
     class ImagesLoadingNotStartedYet : ImagesListViewState()

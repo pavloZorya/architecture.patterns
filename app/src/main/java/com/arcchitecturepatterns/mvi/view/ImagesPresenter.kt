@@ -1,6 +1,8 @@
-package com.arcchitecturepatterns.mvi.image.list
+package com.arcchitecturepatterns.mvi.view
 
+import com.arcchitecturepatterns.mvi.usecase.image.ImagesListInteractor
 import com.arcchitecturepatterns.mvi.usecase.image.state.ImagesListViewState
+import com.arcchitecturepatterns.mvi.view.ImagesListView
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 

@@ -1,6 +1,5 @@
-package com.arcchitecturepatterns.mvi.image.list
+package com.arcchitecturepatterns.mvi.usecase.image
 
-import com.arcchitecturepatterns.mvi.usecase.image.ImagesListUseCase
 import com.arcchitecturepatterns.mvi.usecase.image.state.ImagesListViewState
 import io.reactivex.Observable
 
