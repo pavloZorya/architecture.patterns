@@ -16,6 +16,7 @@ import com.arcchitecturepatterns.R
 import com.arcchitecturepatterns.common.data.image.Image
 import com.arcchitecturepatterns.common.view.ImagesRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_images_list.*
+import timber.log.Timber
 
 class ImagesFragment : Fragment() {
 
@@ -35,8 +36,10 @@ class ImagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated")
 
         with(recyclerView) {
+            Timber.d("set up recyclerView")
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
@@ -46,7 +49,9 @@ class ImagesFragment : Fragment() {
     }
 
     private fun initializeViewModelListeners(viewModel: ImagesListViewModel) {
+        Timber.d("initializeViewModelListeners")
         viewModel.imagesList.observe(this, Observer {
+            Timber.d("images list size: ${it.size}")
             if (it.isNotEmpty()) {
                 showImages(it)
             } else {
@@ -54,16 +59,19 @@ class ImagesFragment : Fragment() {
             }
         })
         viewModel.isLoading.observe(this, Observer {
+            Timber.d("isLoading: $it")
             if (it) {
                 showLoading()
             }
         })
         viewModel.error.observe(this, Observer {
+            Timber.d("error: $it")
             showError(it)
         })
     }
 
     private fun showImages(images: List<Image>) {
+        Timber.d("showImages: ${images.size}")
         recyclerView.adapter =
             ImagesRecyclerViewAdapter(
                 images
@@ -75,6 +83,7 @@ class ImagesFragment : Fragment() {
     }
 
     private fun showEmptyResult() {
+        Timber.d("showEmptyResult")
         progressBar.visibility = GONE
         recyclerView.visibility = GONE
         errorMessage.visibility = VISIBLE
@@ -82,12 +91,14 @@ class ImagesFragment : Fragment() {
     }
 
     private fun showLoading() {
+        Timber.d("showLoading")
         progressBar.visibility = VISIBLE
         recyclerView.visibility = GONE
         errorMessage.visibility = GONE
     }
 
     private fun showError(message: String) {
+        Timber.d("showError -> message: $message")
         progressBar.visibility = GONE
         recyclerView.visibility = GONE
         errorMessage.visibility = VISIBLE

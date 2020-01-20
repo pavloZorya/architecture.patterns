@@ -13,6 +13,7 @@ import com.arcchitecturepatterns.R
 import com.arcchitecturepatterns.common.data.image.Image
 import com.arcchitecturepatterns.common.view.ImagesRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_images_list.*
+import timber.log.Timber
 
 class ImagesFragment : Fragment(), ImagesListContract.ImagesListView {
 
@@ -30,8 +31,10 @@ class ImagesFragment : Fragment(), ImagesListContract.ImagesListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onCreate -> configure")
 
         with(recyclerView) {
+            Timber.d("onCreate -> configure recyclerView. column count: $columnCount")
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
@@ -41,6 +44,7 @@ class ImagesFragment : Fragment(), ImagesListContract.ImagesListView {
     }
 
     override fun showImages(images: List<Image>) {
+        Timber.i("showImages -> list size: ${images.size}")
         recyclerView.adapter =
             ImagesRecyclerViewAdapter(
                 images
@@ -52,6 +56,7 @@ class ImagesFragment : Fragment(), ImagesListContract.ImagesListView {
     }
 
     override fun showEmptyResult() {
+        Timber.i("showEmptyResult")
         progressBar.visibility = GONE
         recyclerView.visibility = GONE
         errorMessage.visibility = VISIBLE
@@ -59,12 +64,14 @@ class ImagesFragment : Fragment(), ImagesListContract.ImagesListView {
     }
 
     override fun showLoading() {
+        Timber.i("showEmptyResult")
         progressBar.visibility = VISIBLE
         recyclerView.visibility = GONE
         errorMessage.visibility = GONE
     }
 
     override fun showError(message: String) {
+        Timber.i("showError -> message: $message")
         progressBar.visibility = GONE
         recyclerView.visibility = GONE
         errorMessage.visibility = VISIBLE

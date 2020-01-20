@@ -1,10 +1,10 @@
 package com.arcchitecturepatterns.mvp.view
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.arcchitecturepatterns.mvi.usecase.image.ImagesListUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class ImagesListPresenter(
     private val view: ImagesListContract.ImagesListView,
@@ -18,7 +18,7 @@ class ImagesListPresenter(
                 Schedulers.io()
             ).observeOn(AndroidSchedulers.mainThread())
             .map {
-                Log.d("ImagesListPresenter", "images loaded: ${it.size}")
+                Timber.d("images loaded: ${it.size}")
                 if (it.isEmpty()) {
                     view.showEmptyResult()
                 } else {
@@ -26,7 +26,12 @@ class ImagesListPresenter(
                 }
             }
             .startWith(view.showLoading())
-            .onErrorReturn { error -> view.showError(error.localizedMessage) }
+            .onErrorReturn { error ->
+                run {
+                    Timber.d("error: ${error.message}")
+                    view.showError(error?.localizedMessage ?: "Error is null")
+                }
+            }
             .subscribe()
     }
 
