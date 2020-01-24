@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: "com.teamwanari.appcenter-publish-plugin"
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+
+apply plugin: "com.teamwanari.appcenter-publish-plugin"
 
 android {
     compileSdkVersion 29
@@ -66,9 +67,9 @@ dependencies {
 appCenter {
     apiToken = "943fcbc51dac175d8cdd8e9034018d02c44f3da0"// Required. Token generated on your AppCenter account
     appName = "ArchitecturePatternsSample"// Required. App name on AppCenter
-    appOwner = "Pavlo Zorya"// Required. User or Organization name who owns the App on AppCenter
+    appOwner = "PavloZoria"// Required. User or Organization name who owns the App on AppCenter
     artifact = file("$projectDir/build/outputs/apk/release/app-release-unsigned.apk")// Required. Path to your release build artifact
-    destination = "Lab Mentor"// Required. Name of the Test Group on AppCenter
-    releaseNotes = "Test release notes.... from Gradle Plugin :)" // Optional. Release notes...
+    destination = "Mentor"// Required. Name of the Test Group on AppCenter
+    releaseNotes = "First test of AppCenter uploading plugin" // Optional. Release notes...
     verbose = true// Optional. Enables API call logging. Defaults to false
 }
