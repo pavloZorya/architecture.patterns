@@ -44,7 +44,7 @@ debugTests:
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
 
-Deploy to Google Drive:
+Deploy to AppCenter:
   stage: deploy
   script:
-    - make deploy
+    - ./gradlew -Pci --console=plain :app:appCenterUpload
