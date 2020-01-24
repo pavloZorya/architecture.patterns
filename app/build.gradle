@@ -70,6 +70,6 @@ appCenter {
     appOwner = "PavloZoria"// Required. User or Organization name who owns the App on AppCenter
     artifact = file("$projectDir/build/outputs/apk/release/app-release-unsigned.apk")// Required. Path to your release build artifact
     destination = "Mentor"// Required. Name of the Test Group on AppCenter
-    releaseNotes = "First test of AppCenter uploading plugin" // Optional. Release notes...
+    releaseNotes = "That build was uploaded from my CI ☺️" // Optional. Release notes...
     verbose = true// Optional. Enables API call logging. Defaults to false
 }
