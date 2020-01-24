@@ -1,0 +1,11 @@
+apply plugin: "com.teamwanari.appcenter-publish-plugin"
+
+appCenter {
+    apiToken = "64901a5403b451e464d026aa1e09a770f5e06243"               // Required. Token generated on your AppCenter account
+    appName = "ArchitecturePatternsSample"           // Required. App name on AppCenter
+    appOwner = "PavloZoria"                 // Required. User or Organization name who owns the App on AppCenter
+    artifact = file("$projectDir/xyz/xyz.apk") // Required. Path to your release build artifact
+    destination = "QA Testers"      // Required. Name of the Test Group on AppCenter
+    releaseNotes = "Test release notes.... from Gradle Plugin :)" // Optional. Release notes...
+    verbose = true                  // Optional. Enables API call logging. Defaults to false
+}

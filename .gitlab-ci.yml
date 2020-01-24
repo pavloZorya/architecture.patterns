@@ -24,6 +24,7 @@ before_script:
 stages:
   - build
   - test
+  - deploy
 
 lintDebug:
   stage: build
@@ -33,7 +34,7 @@ lintDebug:
 assembleDebug:
   stage: build
   script:
-    - ./gradlew assembleDebug
+    - ./gradlew assembleRelease
   artifacts:
     paths:
       - app/build/outputs/
@@ -42,3 +43,8 @@ debugTests:
   stage: test
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
+
+Deploy to Google Drive:
+  stage: deploy
+  script:
+    - make deploy
