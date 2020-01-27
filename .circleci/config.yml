@@ -33,3 +33,6 @@ jobs:
           command: |
             ./gradlew :app:assembleDebug
             ./gradlew :app:assembleDebugAndroidTest
+      - run:
+          name: Deploy release APK
+          command: ./gradlew -Pci --console=plain :app:appCenterUpload
