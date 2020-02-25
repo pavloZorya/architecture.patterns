@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.arcchitecturepatterns.mvi.MviActivity
-import com.arcchitecturepatterns.mvp.MvpActivity
 import com.arcchitecturepatterns.mvvm.MvvmActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
@@ -31,15 +29,15 @@ class MainActivity : AppCompatActivity() {
             openActivity(MvvmActivity::class.java)
         }
 
-        mviButton.setOnClickListener {
-            Timber.i("mviButton click")
-            openActivity(MviActivity::class.java)
-        }
-
-        mvpButton.setOnClickListener {
-            Timber.i("mvpButton click")
-            openActivity(MvpActivity::class.java)
-        }
+//        mviButton.setOnClickListener {
+//            Timber.i("mviButton click")
+//            openActivity(MviActivity::class.java)
+//        }
+//
+//        mvpButton.setOnClickListener {
+//            Timber.i("mvpButton click")
+//            openActivity(MvpActivity::class.java)
+//        }
     }
 
     private fun openActivity(activityClass: Class<out Activity>) {

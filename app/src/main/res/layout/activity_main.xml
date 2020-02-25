@@ -10,7 +10,7 @@
         android:id="@+id/mvvmButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="MVVM"
+        android:text="Load Kitties"
         app:layout_constraintBottom_toTopOf="@+id/mvpButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -27,7 +27,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mvvmButton" />
+        app:layout_constraintTop_toBottomOf="@+id/mvvmButton"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/mviButton"
@@ -38,6 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mvpButton" />
+        app:layout_constraintTop_toBottomOf="@+id/mvpButton"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

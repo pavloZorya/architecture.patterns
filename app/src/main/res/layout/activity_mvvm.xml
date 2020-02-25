@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/imagesList"
-        android:name="com.arcchitecturepatterns.mvvm.view.ImagesFragment"
+        android:name="com.arcchitecturepatterns.mvvm.view.NewsFeedFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
