@@ -34,7 +34,9 @@ class NewsFeedDataService : Service() {
                         response: Response<NewsRemoteApiClass>
                     ) {
                         Timber.d("OnSuccess")
-                        listener?.onSuccess(response.body()?.container?.models ?: emptyList())
+                        val dataContainer = response.body()?.container?.dataContainer?.map { it.model }
+
+                        listener?.onSuccess(dataContainer ?: emptyList())
                     }
 
                 })
