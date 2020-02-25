@@ -21,4 +21,7 @@ interface SavedAtDao {
 
     @Delete
     suspend fun deleteData(savedAt: SavedAtDaoModel)
+
+    @Query("DELETE FROM SavedAt")
+    fun clean()
 }

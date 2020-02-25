@@ -12,4 +12,6 @@ interface SavedAtRepository {
     suspend fun updateData(savedAt: SavedAtDomainModel)
 
     suspend fun deleteData(savedAt: SavedAtDomainModel)
+
+    suspend fun clean()
 }

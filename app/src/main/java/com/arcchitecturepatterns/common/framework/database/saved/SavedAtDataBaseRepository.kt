@@ -23,4 +23,8 @@ class SavedAtDataBaseRepository(private val dao: SavedAtDao) : SavedAtRepository
     override suspend fun deleteData(savedAt: SavedAtDomainModel) {
         dao.deleteData(savedAt.toDaoModel())
     }
+
+    override suspend fun clean() {
+        dao.clean()
+    }
 }

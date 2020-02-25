@@ -4,6 +4,8 @@ import com.arcchitecturepatterns.common.data.news.NewsRepository
 import com.arcchitecturepatterns.common.data.saved.SavedAtRepository
 import com.arcchitecturepatterns.common.domain.entities.news.NewsDomainModel
 import com.arcchitecturepatterns.common.domain.entities.saved.SavedAtDomainModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
@@ -59,6 +61,7 @@ class CombinedNewsDataBaseRepository(
     override suspend fun clean() {
         Timber.d("clean")
         localRepository.clean()
+        savedAtRepository.clean()
         remoteRepository.clean()
     }
 
@@ -69,8 +72,10 @@ class CombinedNewsDataBaseRepository(
     }
 
     private suspend fun getFromRemote(): List<NewsDomainModel>? {
-        Timber.d("has no appropriate data")
-        localRepository.clean()
+        withContext(Dispatchers.IO) {
+            Timber.d("has no appropriate data")
+            clean()
+        }
         return remoteRepository.getList()
     }
 
