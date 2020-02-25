@@ -27,7 +27,7 @@ class NewsFeedRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.image_view_holder, parent, false)
+            .inflate(R.layout.news_view_holder, parent, false)
         return NewsViewHolder(view)
     }
 
