@@ -43,6 +43,12 @@ class NewsFeedRecyclerViewAdapter(
 
     override fun getItemCount(): Int = newsList.size
 
+    fun setItems(items: List<NewsModel>, position: Int) {
+        newsList.clear()
+        newsList.addAll(position, items)
+        notifyItemRangeInserted(position, items.size)
+    }
+
     fun addItems(items: List<NewsModel>, position: Int) {
         newsList.addAll(position, items)
         notifyItemRangeInserted(position, items.size)

@@ -9,7 +9,7 @@ import com.arcchitecturepatterns.mvvm.view.data.NewsModel
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-class NewsFeedViewModel(private val getNews: GetNews<List<NewsModel>>) :
+class NewsFeedViewModel(var getNews: GetNews<List<NewsModel>>) :
     ViewModel() {
 
     val newsList = MutableLiveData<List<NewsModel>>()
@@ -21,7 +21,7 @@ class NewsFeedViewModel(private val getNews: GetNews<List<NewsModel>>) :
             run {
                 var message = exception.message ?: "Error occurred"
                 if (BuildConfig.DEBUG) {
-                    message += exception::class.java.name
+                    message += ", ${exception::class.java.name}"
                 }
                 error.value = message
                 isLoading.value = false
@@ -29,7 +29,7 @@ class NewsFeedViewModel(private val getNews: GetNews<List<NewsModel>>) :
         }
 
     fun loadNews() {
-        isLoading.value = true
+        isLoading.postValue( true)
         viewModelScope.launch(errorHandler) {
             newsList.value = getNews()
             isLoading.value = false

@@ -1,5 +1,6 @@
 package com.arcchitecturepatterns.mvvm.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arcchitecturepatterns.R
@@ -28,30 +30,14 @@ import timber.log.Timber
 class NewsFeedFragment : Fragment() {
 
     private var columnCount = 1
-    private val viewModel: NewsFeedViewModel by lazy {
-
-        val savedARepository =
-            SavedAtDataBaseRepository(NewsDataBase.getDatabase().savedAtDao())
-        val localRepository = NewsDataBaseRepository(NewsDataBase.getDatabase().newsDao())
-        val remoteRepository = NewsServiceRepository(context!!)
-
-        val combinedNewsDataBaseRepository =
-            CombinedNewsDataBaseRepository(savedARepository, localRepository, remoteRepository)
-        val transformer = ToNewsModelListTransformer(ToNewsModelTransformer())
-
-        val useCase = GetNews(combinedNewsDataBaseRepository, transformer)
-
-        val viewModelFactory = UploadFileViewModelFactory(useCase)
-        ViewModelProvider(this, viewModelFactory)[NewsFeedViewModel::class.java]
-    }
-
+    lateinit var viewModel: NewsFeedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_images_list, container, false)
-
+        viewModel = VModelProvider.prepareNewsFeedViewModel(this, context!!)
         this.initializeViewModelListeners(viewModel)
         return view
     }
@@ -73,6 +59,7 @@ class NewsFeedFragment : Fragment() {
                 ArrayList()
             )
 
+        initializeViewModelListeners(viewModel)
         viewModel.loadNews()
     }
 
@@ -100,7 +87,7 @@ class NewsFeedFragment : Fragment() {
 
     private fun showImages(newsList: List<NewsModel>) {
         Timber.d("showImages: ${newsList.size}")
-        (recyclerView.adapter as NewsFeedRecyclerViewAdapter).addItems(newsList, 0)
+        (recyclerView.adapter as NewsFeedRecyclerViewAdapter).setItems(newsList, 0)
 
         recyclerView.visibility = VISIBLE
         progressBar.visibility = GONE
@@ -130,4 +117,22 @@ class NewsFeedFragment : Fragment() {
         errorMessage.text = message
     }
 
+    object VModelProvider {
+
+        fun prepareNewsFeedViewModel(owner: ViewModelStoreOwner, context: Context): NewsFeedViewModel {
+            val savedARepository =
+                SavedAtDataBaseRepository(NewsDataBase.getDatabase().savedAtDao())
+            val localRepository = NewsDataBaseRepository(NewsDataBase.getDatabase().newsDao())
+            val remoteRepository = NewsServiceRepository(context)
+
+            val combinedNewsDataBaseRepository =
+                CombinedNewsDataBaseRepository(savedARepository, localRepository, remoteRepository)
+            val transformer = ToNewsModelListTransformer(ToNewsModelTransformer())
+
+            val useCase = GetNews(combinedNewsDataBaseRepository, transformer)
+
+            val viewModelFactory = NewsFeedViewModelFactory(useCase)
+            return ViewModelProvider(owner, viewModelFactory)[NewsFeedViewModel::class.java]
+        }
+    }
 }
